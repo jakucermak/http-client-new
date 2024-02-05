@@ -1,0 +1,238 @@
+
+@function set-foreground-color($color) {
+  @if (lightness( $color ) > 50) {
+  @return #000; // lighter color, return black
+    }
+  @else {
+  @return #fff; // darker color, return white
+    }
+  }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  max-width: 100%;
+  padding: 2rem;
+
+}
+h2 {
+  text-align: center;
+  margin: 0;
+}
+
+.heading {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 1rem;
+}
+
+h4 {
+  margin: 0;
+}
+
+thead {
+  width: 100%;
+  height: 1rem;
+}
+
+th {
+  width: 100%;
+  text-align: start;
+  height: 2rem;
+}
+
+
+.slider {
+  width: 1rem;
+  height: 1rem;
+  visibility: hidden;
+  background-image: url('icons/slider.horizontal.3.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1.2rem;
+  transition: visibility 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+
+.tbTable {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+tr {
+  display: flex;
+  align-items: center;
+}
+
+.status,
+.pivot,
+.data {
+  flex-shrink: 0;
+  /* Zabrání změně šířky */
+  white-space: nowrap;
+}
+
+hr.solid {
+
+  border-top: 1px solid;
+  border-radius: 3px;
+  margin: 0.5rem;
+}
+
+.testBench {
+  width: 25rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0.5rem
+}
+
+.testBench:hover .slider {
+  visibility: visible;
+  /* Slider se zobrazí při hoveru */
+  opacity: 1;
+  /* Prvek je plně viditelný */
+}
+
+td.status {
+  width: 1rem;
+}
+
+.status {
+  width: 1rem;
+  padding: 5px;
+}
+
+td.pivot {
+  flex-basis: 100px;
+}
+
+td.data {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.non-active {
+  content: url('icons/circle.inset.filled.offline.svg')
+}
+
+.active {
+  content: url('icons/circle.inset.filled.online.svg')
+}
+
+.subContainer.hidden {
+
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s, max-height 0.5s ease-in-out;
+}
+
+.subContainer.visible {
+  opacity: 1;
+  max-height: 500px; // Předpokládaná maximální výška obsahu
+  overflow: hidden;
+  transition: opacity 0.5s, max-height 0.5s ease-in-out;;
+}
+
+// Chevron
+
+$background: white;
+$easing: cubic-bezier(.25, 1.7, .7, 0.5);
+$duration: 0.5s;
+$chevron-color: rgb(135, 135, 135);
+$chevron-hover-color: rgb(0, 0, 0); 
+$chevron-size: 15px;
+
+.arrow-icon {
+  background-color: $background;
+  height: 1rem;
+  width: 2.8em;
+  display: block;
+  margin: 5px auto 0 auto;
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+  
+  transition: background-color $duration $easing; // Přidává přechod pro pozadí
+  transition-delay: 0.2s;
+
+  &:hover {
+    background-color: lighten($background, 10%); // Lehce zesvětlí pozadí při najetí
+  }
+}
+
+.left-bar {
+  position: absolute;
+  background-color: white;
+  top: 5px;
+  left: 10px;
+  width: $chevron-size;
+  height: 2px;
+  display: block;
+  transform: rotate(35deg);
+  float: right;
+  border-radius: 1px;
+
+  &:after {
+    content: "";
+    background-color: $chevron-color;
+    width: $chevron-size;
+    height: 2px;
+    display: block;
+    float: right;
+    border-radius: 2px;
+    transition: all $duration $easing;
+    transition-delay: 0.2s;
+    z-index: -1;
+  }
+}
+.right-bar {
+  position: absolute;
+  background-color: transparent;
+  top: 5px;
+  left: 21px;
+  width: $chevron-size;
+  height: 2px;
+  display: block;
+  transform: rotate(-35deg);
+  float: right;
+  border-radius: 1px;
+
+  &:after {
+    content: "";
+    background-color: $chevron-color;
+    width: $chevron-size;
+    height: 2px;
+    display: block;
+    float: right;
+    border-radius: 2px;
+    transition: all $duration $easing;
+    transition-delay: 0.2s;
+    z-index: -1;
+  }
+}
+
+.arrow-icon:hover .left-bar:after,
+.arrow-icon:hover .right-bar:after {
+  background-color: $chevron-hover-color; // Mění barvu pruhů při najetí
+}
+
+.open {
+  .left-bar:after {
+    transform-origin: center center;
+    transform: rotate(-70deg);
+  }
+
+  .right-bar:after {
+    transform-origin: center center;
+    transform: rotate(70deg);
+  }
+
+}
+
+.chevronBox {
+  padding: 10px;
+}
+
